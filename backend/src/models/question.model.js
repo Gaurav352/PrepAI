@@ -9,7 +9,7 @@ const questionSchema = new mongoose.Schema({
     question:String,
     answer:String,
     note:String,
-    isPinend:{
+    isPinned:{
         type:Boolean,
         default:false,
     }

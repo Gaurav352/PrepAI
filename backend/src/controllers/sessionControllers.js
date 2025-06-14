@@ -1,16 +1,39 @@
-import { Session } from "../models/session.model";
-
+import { Session } from "../models/session.model.js";
+import {Question} from "../models/question.model.js"
 export const createSession = async (req, res) => {
     try {
-        const {role, experience, topics, description} = req.body;
+        const {role, experience, topics, description,questions} = req.body;
         const user = req.user;
         if (!role || !experience || !topics || !description) {
             return res.status(400).json({message: "All fields are required"});
         }
+        const session = await Session.create({
+            user:user._id,
+            role,
+            experience,
+            topics,
+            description,
+        });
+        const questionsToAdd = await Promise.all(
+            questions.map(async (q) => {
+                const question = await Question.create({
+                    session: session._id,
+                    question: q.question,
+                    answer: q.answer,
+                    note: q.note || "",
+                    isPinned: q.isPinned || false,
+                });
+                return question._id;
+            })
+        );
+        session.questions = questionsToAdd;
+        await session.save();
+        return res.status(201).json({success: true, message: "Session created successfully", session});
 
 
     } catch (error) {
-        
+        console.log('Error creating session', error);
+        return res.status(500).json({success: false, message: "Internal server error"});
     }
 }
 export const mySessions =async (req, res) => {

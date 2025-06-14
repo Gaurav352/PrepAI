@@ -4,8 +4,8 @@ import cors from "cors";
 import { connectDB } from "./lib/db.js";
 import authRoutes from "./routes/authRoutes.js";
 import cookieParser from "cookie-parser";
-import {sessionRoutes} from "./routes/sessionRoutes.js";
-// import {questionRoutes} from "./routes/questionRoutes.js";
+import sessionRoutes from "./routes/sessionRoutes.js";
+import questionRoutes from "./routes/questionRoutes.js";
 
 dotenv.config();
 const app = express();
@@ -26,7 +26,7 @@ app.use(express.json());
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/sessions", sessionRoutes);
-// app.use("/api/questions",questionRoutes);
+app.use("/api/questions",questionRoutes);
 // app.use("/api/ai/generateQuestion",protect,generateQuestion);
 // app.use("/api/ai/generateAnswer",protect,generateAnswer);
 
