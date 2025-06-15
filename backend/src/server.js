@@ -6,6 +6,8 @@ import authRoutes from "./routes/authRoutes.js";
 import cookieParser from "cookie-parser";
 import sessionRoutes from "./routes/sessionRoutes.js";
 import questionRoutes from "./routes/questionRoutes.js";
+import { protect } from "./middlewares/authMiddleware.js";
+import { generateExplanation, generateQuestion } from "./controllers/AIController.js";
 
 dotenv.config();
 const app = express();
@@ -27,8 +29,8 @@ app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/sessions", sessionRoutes);
 app.use("/api/questions",questionRoutes);
-// app.use("/api/ai/generateQuestion",protect,generateQuestion);
-// app.use("/api/ai/generateAnswer",protect,generateAnswer);
+app.use("/api/ai/generateQuestion",protect,generateQuestion);
+app.use("/api/ai/generateExplanation",protect,generateExplanation);
 
 // Start the server
 app.listen(PORT, () => {
