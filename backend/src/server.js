@@ -19,7 +19,7 @@ const __dirname = path.resolve();
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
-  origin: 'http://localhost:5173',
+  origin: 'http://localhost:5174',
   credentials: true,
   methods: ["POST", "GET", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"]

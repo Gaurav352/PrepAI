@@ -13,7 +13,7 @@ export const generateQuestion = async (req,res)=>{
         const prompt = questionAnswerPrompt(role,experience,topics,numberOfQuestion);
 
         const response = await ai.models.generateContent({
-            model:"gemini-2.0-flash-lite",
+            model:"gemini-2.5-flash-lite",
             contents:prompt,
         });
         let raw = response.text;
